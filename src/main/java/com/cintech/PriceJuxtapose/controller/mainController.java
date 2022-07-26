@@ -29,6 +29,12 @@ public class mainController {
         return true;
     }
 
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/run")
+    public String getConfirmation() {
+        return "working, all in order";
+    }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/getAllBulk")
     public List<MainDTO> getPickNPayProducts() {
