@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/main")
 public class mainController {
 
-    private MainService mainService;
+    private final MainService mainService;
 
     public mainController(MainService mainService) {
         this.mainService = mainService;
@@ -33,7 +33,7 @@ public class mainController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/run")
     public String getConfirmation() {
-        return "working, all in order";
+        return "working, )))all in order";
     }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/getAllBulk")
