@@ -31,7 +31,7 @@ public class mainController {
 
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/run")
+    @GetMapping("/run1")
     public String getConfirmation() {
         return "working, )))all in order";
     }
