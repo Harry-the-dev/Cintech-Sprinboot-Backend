@@ -14,7 +14,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/**");
@@ -23,12 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.headers(headers -> headers.disable());
-
-        //http.authorizeRequests().antMatchers("/**").permitAll();
-
-
+        http.authorizeRequests().antMatchers("/**").permitAll();
     }
-
 
 
 }

@@ -1,8 +1,10 @@
 package com.cintech.PriceJuxtapose.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+
 @Entity
 @Setter
 @Getter
@@ -25,6 +27,7 @@ public class PickNPay {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prod_id")
+    @JsonIgnore
     private Product product;
 
 

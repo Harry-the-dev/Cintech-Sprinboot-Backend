@@ -1,12 +1,12 @@
 package com.cintech.PriceJuxtapose.service;
 
-import com.cintech.PriceJuxtapose.DTO.PickNPayDTO;
+import com.cintech.PriceJuxtapose.DTO.*;
 import com.cintech.PriceJuxtapose.DTO.WoolworthsDTO;
-import com.cintech.PriceJuxtapose.entity.PickNPay;
+import com.cintech.PriceJuxtapose.entity.Product;
 import com.cintech.PriceJuxtapose.entity.Woolworth;
 import com.cintech.PriceJuxtapose.repository.WoolworthRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,48 +15,78 @@ import java.util.List;
 @Service
 public class WoolworthsService {
 
+    @Autowired
     private WoolworthRepository woolworthRepository;
+    @Autowired
+    private ProductService productService;
     private ModelMapper mapper;
 
-    public WoolworthsService(WoolworthRepository woolworthRepository) {
-        this.woolworthRepository = woolworthRepository;
+
+    public Woolworth convertMainDTOtoEntity(MainDTO mainDTO) {
+        Woolworth woolworths = Woolworth.builder()
+                .id(mainDTO.getProduct().getId())
+                .price(mainDTO.getWoolworths().getPrice())
+                .url(mainDTO.getWoolworths().getUrl())
+                .product(mainDTO.getWoolworths().getProduct())
+                .build();
+
+
+        return woolworths;
     }
 
-    public Woolworth convertDTOtoEntity(WoolworthsDTO woolworthsDTO) {
-        this.mapper = new ModelMapper();
-        TypeMap<WoolworthsDTO, Woolworth> propertyMapper = this.mapper.createTypeMap(WoolworthsDTO.class, Woolworth.class);
-        propertyMapper.addMappings(mapper -> mapper.map(src -> src.getProductDTO(), Woolworth::setProduct));
-        propertyMapper.addMappings(mapper -> mapper.map(src -> src.getProductDTO().getId(), Woolworth::setId));
-        Woolworth result = this.mapper.map(woolworthsDTO, Woolworth.class);
+    public MainDTO convertEntityToMainDTO(Woolworth woolworths) {
+        Product product = Product.builder()
+                .id(woolworths.getProduct().getId())
+                .prodTitle(woolworths.getProduct().getProdTitle())
+                .prodVolume(woolworths.getProduct().getProdVolume())
+                .prodVolumeUnit(woolworths.getProduct().getProdVolumeUnit())
+                .build();
+
+        Woolworth woolworthTemp = Woolworth.builder()
+                .id(woolworths.getProduct().getId())
+                .price(woolworths.getPrice())
+                .url(woolworths.getUrl())
+                .product(product)
+                .build();
+
+
+        MainDTO mainDTO = MainDTO.builder()
+                .product(product)
+                .woolworths(woolworthTemp)
+                .build();
+
+        return mainDTO;
+    }
+
+    public MainDTO getProductById(Integer id) {
+        return convertEntityToMainDTO(woolworthRepository.findWoolworthsByProductId(id));
+    }
+
+    public List<MainDTO> getProductByTitle(String title) {
+        List<MainDTO> result = new ArrayList<MainDTO>();
+        List<Product> productDTOList = productService.getAllProductByTitleLikeOrContaining(title);
+        productDTOList.forEach(item -> result.add(getProductById(item.getId())));
         return result;
     }
 
-    public WoolworthsDTO convertEntityToDTO(Woolworth woolworths) {
-        this.mapper = new ModelMapper();
-        TypeMap<Woolworth, WoolworthsDTO> propertyMapper = this.mapper.createTypeMap(Woolworth.class, WoolworthsDTO.class);
-        propertyMapper.addMappings(mapper -> mapper.map(src -> src.getProduct(), WoolworthsDTO::setProductDTO));
-        WoolworthsDTO result = this.mapper.map(woolworths, WoolworthsDTO.class);
+
+    public List<MainDTO> getProducts() {
+        List<MainDTO> result = new ArrayList<MainDTO>();
+        woolworthRepository.findAll().forEach(value -> result.add(convertEntityToMainDTO(value)));
         return result;
     }
 
-    public WoolworthsDTO getProductById(Integer id) {
-        return convertEntityToDTO(woolworthRepository.findWoolworthsByProductId(id));
+    public Woolworth saveProduct(MainDTO mainDTO) {
+        return woolworthRepository.save(convertMainDTOtoEntity(mainDTO));
     }
 
-    public List<WoolworthsDTO> getALL() {
-        List<WoolworthsDTO> result = new ArrayList<WoolworthsDTO>();
-        woolworthRepository.findAll().forEach(value -> result.add(convertEntityToDTO(value)));
-        return result;
-    }
-
-    public List<WoolworthsDTO> getProductByPriceBetween (double min , double max )
+    /*
+    public List<MainDTO> getProductByPriceBetween (double min , double max )
     {
-        List<WoolworthsDTO> result = new ArrayList<WoolworthsDTO>();
-        woolworthRepository.findAllByPriceBetween(min,max).forEach(value -> result.add(convertEntityToDTO(value)));
+        List<MainDTO> result = new ArrayList<MainDTO>();
+        woolworthRepository.findAllByPriceBetween(min,max).forEach(value -> result.add(convertEntityToMainDTO(value)));
         return result;
-    }
+    }*/
 
-    public Woolworth saveProduct(WoolworthsDTO woolworthDTO) {
-        return woolworthRepository.save(convertDTOtoEntity(woolworthDTO));
-    }
+
 }

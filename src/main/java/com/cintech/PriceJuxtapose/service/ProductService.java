@@ -1,11 +1,13 @@
 package com.cintech.PriceJuxtapose.service;
 
+import com.cintech.PriceJuxtapose.DTO.MainDTO;
 import com.cintech.PriceJuxtapose.DTO.ProductDTO;
 import com.cintech.PriceJuxtapose.entity.Product;
 import com.cintech.PriceJuxtapose.repository.PickNPayRepository;
 import com.cintech.PriceJuxtapose.repository.ProductRepository;
 import com.cintech.PriceJuxtapose.repository.WoolworthRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,19 +17,9 @@ import java.util.List;
 public class ProductService {
 
     private ModelMapper mapper;
+    @Autowired
     private ProductRepository productRepository;
 
-
-
-    public ProductService(ProductRepository productRepository, PickNPayRepository pickNPayRepository, WoolworthRepository woolworthRepository) {
-        this.productRepository = productRepository;
-
-    }
-
-    public List<Product> getAll ()
-    {
-        return productRepository.findAll();
-    }
 
     public Product save(Product product) {
         return productRepository.save(product);
@@ -46,27 +38,34 @@ public class ProductService {
     }
 
 
-    public ProductDTO getProductById (Integer id ) {
-        return convertEntityToDTO(productRepository.findProductById(id ));
+    public ProductDTO getProductById(Integer id) {
+        return convertEntityToDTO(productRepository.findProductById(id));
     }
 
-    public List<ProductDTO> getAllProductListed() {
-        List<ProductDTO> result = new ArrayList<ProductDTO>();
-        productRepository.findAll().forEach(value -> result.add(convertEntityToDTO(value)));
-        return result;
-    }
-    public List<ProductDTO> getAllProductByTitleLikeOrContaining(String Title) {
-        List<ProductDTO> result = new ArrayList<ProductDTO>();
-        productRepository.findAllByProdTitleContainingIgnoreCase(Title).forEach(value -> result.add(convertEntityToDTO(value)));
+    public List<Product> getAllProductListed() {
+        List<Product> result = new ArrayList<Product>();
+        productRepository.findAll().forEach(value -> result.add(value));
         return result;
     }
 
-    public Product saveProduct(ProductDTO product) {
-        Product result = convertDTOtoEntity(product);
-        return productRepository.save(result);
+    public List<Product> getRandom10() {
+        List<Product> result = new ArrayList<Product>();
+        productRepository.findRandom10().forEach(value -> result.add(value));
+        return result;
+
     }
 
 
+    public List<Product> getAllProductByTitleLikeOrContaining(String Title) {
+        List<Product> result = new ArrayList<Product>();
+        productRepository.findAllByProdTitleContainingIgnoreCase(Title).forEach(value -> result.add(value));
+        return result;
+    }
+
+    public Product saveProduct(MainDTO mainDTO) {
+
+        return productRepository.save(mainDTO.getProduct());
+    }
 
 
 }

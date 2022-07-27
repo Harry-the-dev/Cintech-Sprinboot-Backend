@@ -13,8 +13,8 @@ import javax.persistence.*;
 @Table(name = "products")
 public class Product {
     @Id
-    @SequenceGenerator(name = "product_sequence",sequenceName = "product_sequence",allocationSize = 1)
-    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "product_sequence")
+    @SequenceGenerator(name = "product_sequence", sequenceName = "product_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
     @Column(name = "prod_id", nullable = false)
     private Integer id;
 

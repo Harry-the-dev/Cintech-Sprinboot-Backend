@@ -1,39 +1,35 @@
 package com.cintech.PriceJuxtapose.controller;
 
-import com.cintech.PriceJuxtapose.DTO.PickNPayDTO;
+import com.cintech.PriceJuxtapose.DTO.MainDTO;
 import com.cintech.PriceJuxtapose.service.PickNPayService;
-import com.cintech.PriceJuxtapose.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/picknpay")
 public class PickNPayController {
 
-    private final PickNPayService pickNPayService ;
-    private final ProductService productService ;
+    @Autowired
+    private PickNPayService pickNPayService;
 
-    public PickNPayController(PickNPayService pickNPayService, ProductService productService) {
-        this.pickNPayService = pickNPayService;
-        this.productService = productService;
-    }
 
-    //http://localhost:8080/test/getPickNPayProducts
+    //http://localhost:8080/picknpay/getProducts
     //-----------------------------GET all PNP products------------------------------------------------
-    @GetMapping("/getPickNPayProducts")
-    public List<PickNPayDTO> getPickNPayProducts() {
-        return pickNPayService.getALL();
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/getProducts")
+    public List<MainDTO> getProducts() {
+        return pickNPayService.getProducts();
     }
 
 
-    //http://localhost:8080/test/getPickNPayProductById
-    //-----------------------------GET all PNP products By ID------------------------------------------------
-    @GetMapping("/getPickNPayProducts/{id}")
-    public PickNPayDTO getALLPickNPayProductById(@PathVariable Integer id) {
-        return pickNPayService.getProductById(id);
+    //http://localhost:8080/picknpay/getProductByTitle
+    //-----------------------------GET all PNP products By Title------------------------------------------------
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("getProductByTitle/{title}")
+    public List<MainDTO> getProductsByTitle(@PathVariable String title) {
+        return pickNPayService.getProductByTitle(title);
     }
 }

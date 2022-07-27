@@ -1,6 +1,8 @@
 package com.cintech.PriceJuxtapose.DTO;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.cintech.PriceJuxtapose.entity.PickNPay;
+import com.cintech.PriceJuxtapose.entity.Product;
+import com.cintech.PriceJuxtapose.entity.Woolworth;
 import lombok.*;
 
 import java.io.Serializable;
@@ -10,10 +12,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MainDTO implements Serializable{
+public class MainDTO implements Serializable {
 
-    private ProductDTO product;
-    private PickNPayDTO pickNPay;
-    private WoolworthsDTO woolworths;
+    private Product product;
+    private PickNPay pickNPay;
+    private Woolworth woolworths;
 
 }

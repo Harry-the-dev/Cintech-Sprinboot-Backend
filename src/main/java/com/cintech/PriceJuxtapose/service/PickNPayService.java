@@ -1,10 +1,11 @@
 package com.cintech.PriceJuxtapose.service;
 
-import com.cintech.PriceJuxtapose.DTO.PickNPayDTO;
+import com.cintech.PriceJuxtapose.DTO.MainDTO;
 import com.cintech.PriceJuxtapose.entity.PickNPay;
+import com.cintech.PriceJuxtapose.entity.Product;
 import com.cintech.PriceJuxtapose.repository.PickNPayRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,59 +13,61 @@ import java.util.List;
 
 @Service
 public class PickNPayService {
+
+    @Autowired
     private PickNPayRepository pickNPayRepository;
+    @Autowired
+    private ProductService productService;
+
+
     private ModelMapper mapper;
-    public PickNPayService(PickNPayRepository pickNPayRepository) {
-        this.pickNPayRepository = pickNPayRepository;
+
+
+    public PickNPay convertMainDTOtoEntity(MainDTO mainDTO) {
+        PickNPay pickNPay = PickNPay.builder().id(mainDTO.getProduct().getId()).price(mainDTO.getPickNPay().getPrice()).url(mainDTO.getPickNPay().getUrl()).product(mainDTO.getPickNPay().getProduct()).build();
+
+
+        return pickNPay;
     }
 
-    public PickNPay convertDTOtoEntity (PickNPayDTO pickNPayDTO)
-    {
-       /* PickNPay pickNPay = PickNPay.builder()
-                .id(pickNPayDTO.getProductDTO().getId())
-                .price(pickNPayDTO.getPrice())
-                .url(pickNPayDTO.getUrl())
-                .product(pickNPayDTO.getProductDTO().)
-                .build();*/
-        this.mapper = new ModelMapper();
-        TypeMap<PickNPayDTO, PickNPay> propertyMapper = this.mapper.createTypeMap(PickNPayDTO.class, PickNPay.class);
-        propertyMapper.addMappings(mapper -> mapper.map(src -> src.getProductDTO(), PickNPay::setProduct));
-        propertyMapper.addMappings(mapper -> mapper.map(src -> src.getProductDTO().getId(), PickNPay::setId));
-        PickNPay result = this.mapper.map(pickNPayDTO, PickNPay.class);
+    public MainDTO convertEntityToMainDTO(PickNPay pickNPay) {
+        Product product = Product.builder().id(pickNPay.getProduct().getId()).prodTitle(pickNPay.getProduct().getProdTitle()).prodVolume(pickNPay.getProduct().getProdVolume()).prodVolumeUnit(pickNPay.getProduct().getProdVolumeUnit()).build();
+
+        PickNPay pickNPayTemp = PickNPay.builder().id(pickNPay.getProduct().getId()).price(pickNPay.getPrice()).url(pickNPay.getUrl()).product(pickNPay.getProduct()).build();
+
+        MainDTO mainDTO = MainDTO.builder().product(product).pickNPay(pickNPayTemp).build();
+
+        return mainDTO;
+    }
+
+    public MainDTO getProductById(Integer id) {
+        return convertEntityToMainDTO(pickNPayRepository.findPickNPayByProductId(id));
+    }
+
+    public List<MainDTO> getProductByTitle(String title) {
+        List<MainDTO> result = new ArrayList<MainDTO>();
+        List<Product> productDTOList = productService.getAllProductByTitleLikeOrContaining(title);
+        productDTOList.forEach(item -> result.add(getProductById(item.getId())));
         return result;
     }
 
-    public PickNPayDTO convertEntityToDTO (PickNPay pickNPay)
-    {
-        this.mapper = new ModelMapper();
-        TypeMap<PickNPay, PickNPayDTO> propertyMapper = this.mapper.createTypeMap(PickNPay.class, PickNPayDTO.class);
-        propertyMapper.addMappings(mapper -> mapper.map(src -> src.getProduct(), PickNPayDTO::setProductDTO));
-        PickNPayDTO result = this.mapper.map(pickNPay,PickNPayDTO.class);
+
+    public List<MainDTO> getProducts() {
+        List<MainDTO> result = new ArrayList<MainDTO>();
+        pickNPayRepository.findAll().forEach(value -> result.add(convertEntityToMainDTO(value)));
         return result;
     }
 
-    public PickNPayDTO getProductById (Integer id)
-    {
-        return convertEntityToDTO(pickNPayRepository.findPickNPayByProductId(id));
+    public PickNPay saveProduct(MainDTO mainDTO) {
+        return pickNPayRepository.save(convertMainDTOtoEntity(mainDTO));
     }
 
+
+        /*
     public List<PickNPayDTO> getProductByPriceBetween ( double min , double max )
     {
         List<PickNPayDTO> result = new ArrayList<PickNPayDTO>();
         pickNPayRepository.findAllByPriceBetween(min,max).forEach(value -> result.add(convertEntityToDTO(value)));
         return result;
-    }
-
-
-    public List<PickNPayDTO> getALL ()
-    {
-        List<PickNPayDTO> result = new ArrayList<PickNPayDTO>();
-        pickNPayRepository.findAll().forEach(value -> result.add(convertEntityToDTO(value)));
-        return result ;
-    }
-
-    public PickNPay saveProduct (PickNPayDTO pickNPayDTO) {
-        return pickNPayRepository.save(convertDTOtoEntity(pickNPayDTO));
-    }
-
+    }*/
 }

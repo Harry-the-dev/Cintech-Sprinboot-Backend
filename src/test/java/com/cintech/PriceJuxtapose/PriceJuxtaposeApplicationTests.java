@@ -30,7 +30,7 @@ class PriceJuxtaposeApplicationTests {
 	private PickNPayRepository pickNPayRepository;
 
 	private ModelMapper mapper;
-
+	/*
 	@Test
 	public void saveAllProduct6() {
 
@@ -59,8 +59,6 @@ class PriceJuxtaposeApplicationTests {
 		pickNPayService.saveProduct(pickNPay);
 		woolworthsService.saveProduct(woolworth);
 
-
-
-	}
+	}*/
 
 }

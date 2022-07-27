@@ -2,57 +2,59 @@ package com.cintech.PriceJuxtapose.controller;
 
 import com.cintech.PriceJuxtapose.DTO.MainDTO;
 import com.cintech.PriceJuxtapose.service.MainService;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/main")
+@RequestMapping("/all")
 public class mainController {
 
-    private final MainService mainService;
+    @Autowired
+    private MainService mainService;
 
-    public mainController(MainService mainService) {
-        this.mainService = mainService;
-    }
-
+    //http://localhost:8080/all/saveProducts
+    //----------------------------- Add Products in Bulk to all shops------------------------------------------------
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(path="/addBulk", consumes = "application/json", produces = "application/json")
-    public boolean addWoolworthsProducts(@RequestBody List<MainDTO> mainDTO) {
-
-        mainDTO.forEach(value -> mainService.saveBulk(value));
+    @PostMapping(path = "/saveProducts", consumes = "application/json", produces = "application/json")
+    public boolean saveProducts(@RequestBody List<MainDTO> mainDTO) {
+        mainDTO.forEach(value -> mainService.saveProducts(value));
         return true;
     }
 
-
+    //http://localhost:8080/all/start
+    //----------------------------- GET starting 10 Random Products From all Stores------------------------------------------------
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/run1")
-    public String getConfirmation() {
-        return "working, )))all in order";
-    }
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/getAllBulk")
-    public List<MainDTO> getPickNPayProducts() {
-        return mainService.getAllBulk();
+    @GetMapping("/start")
+    public List<MainDTO> getRandom10() {
+        return mainService.getRandom10();
     }
 
+
+    //http://localhost:8080/all/getProducts
+    //----------------------------- GET  Products From all Stores-------------------------------------------
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/getAllBulkByTitle/{title}")
-    public List<MainDTO> getPickNPayProducts(@PathVariable String title) {
-        return mainService.getALLBulkByTitleContainingOrLike(title);
+    @GetMapping("/getProducts")
+    public List<MainDTO> getProducts() {
+        return mainService.getProducts();
     }
 
+    //http://localhost:8080/all/getProductsByTitle
+    //----------------------------- GET  Products From all Stores-------------------------------------------
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/getAllBulkByPriceBetween/{min}/{max}")
+    @GetMapping("/getProductsByTitle/{title}")
+    public List<MainDTO> getProductsByTitle(@PathVariable String title) {
+        return mainService.getProductsByTitle(title);
+    }
+
+    /*
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/getAllByPriceBetween/{min}/{max}")
     public List<MainDTO> getAllBulkByPriceBetween(@PathVariable double min,@PathVariable double max ) {
         return mainService.findPriceBetween(min, max);
-    }
-
+    }*/
 
 
 }

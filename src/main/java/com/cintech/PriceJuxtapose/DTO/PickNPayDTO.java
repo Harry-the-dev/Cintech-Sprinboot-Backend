@@ -1,5 +1,6 @@
 package com.cintech.PriceJuxtapose.DTO;
 
+import com.cintech.PriceJuxtapose.entity.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -12,10 +13,12 @@ import java.io.Serializable;
 @Builder
 public class PickNPayDTO implements Serializable {
 
+
     @JsonIgnore
-    private  Integer id;
-    private  Double price;
-    private  String url;
+    private Product product;
     @JsonIgnore
-    private  ProductDTO productDTO;
+    private Integer id;
+    private Double price;
+    private String url;
+
 }
