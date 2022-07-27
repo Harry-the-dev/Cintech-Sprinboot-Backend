@@ -27,7 +27,7 @@ public class WoolworthsService {
                 .id(mainDTO.getProduct().getId())
                 .price(mainDTO.getWoolworths().getPrice())
                 .url(mainDTO.getWoolworths().getUrl())
-                .product(mainDTO.getWoolworths().getProduct())
+                .product(mainDTO.getProduct())
                 .build();
 
 

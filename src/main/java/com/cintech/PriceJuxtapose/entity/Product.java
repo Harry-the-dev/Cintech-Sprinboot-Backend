@@ -1,6 +1,8 @@
 package com.cintech.PriceJuxtapose.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -11,10 +13,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Table(name = "products")
+@DynamicInsert
+@DynamicUpdate
 public class Product {
     @Id
-    @SequenceGenerator(name = "product_sequence", sequenceName = "product_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
+
     @Column(name = "prod_id", nullable = false)
     private Integer id;
 

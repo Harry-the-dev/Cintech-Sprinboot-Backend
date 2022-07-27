@@ -2,6 +2,8 @@ package com.cintech.PriceJuxtapose.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -14,6 +16,8 @@ import javax.persistence.*;
 @Table(name = "woolworths", indexes = {
         @Index(name = "prod_id", columnList = "prod_id", unique = true)
 })
+@DynamicInsert
+@DynamicUpdate
 public class Woolworth {
     @Id
     @Column(name = "id", nullable = false)
@@ -24,6 +28,7 @@ public class Woolworth {
 
     @Column(name = "url")
     private String url;
+
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prod_id")

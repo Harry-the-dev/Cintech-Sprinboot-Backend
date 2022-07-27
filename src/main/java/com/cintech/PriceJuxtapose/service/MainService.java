@@ -45,7 +45,7 @@ public class MainService {
     }
 
 
-    @Transactional
+
     public boolean saveProducts(MainDTO mainDTO) {
 
         productService.saveProduct(mainDTO);

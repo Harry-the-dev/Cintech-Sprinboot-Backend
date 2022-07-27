@@ -24,7 +24,7 @@ public class PickNPayService {
 
 
     public PickNPay convertMainDTOtoEntity(MainDTO mainDTO) {
-        PickNPay pickNPay = PickNPay.builder().id(mainDTO.getProduct().getId()).price(mainDTO.getPickNPay().getPrice()).url(mainDTO.getPickNPay().getUrl()).product(mainDTO.getPickNPay().getProduct()).build();
+        PickNPay pickNPay = PickNPay.builder().id(mainDTO.getProduct().getId()).price(mainDTO.getPickNPay().getPrice()).url(mainDTO.getPickNPay().getUrl()).product(mainDTO.getProduct()).build();
 
 
         return pickNPay;
