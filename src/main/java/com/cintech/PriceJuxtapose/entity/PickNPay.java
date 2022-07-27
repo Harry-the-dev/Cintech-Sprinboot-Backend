@@ -21,6 +21,7 @@ import javax.persistence.*;
 public class PickNPay {
     @Id
     @Column(name = "id", nullable = false)
+    @JsonIgnore
     private Integer id;
 
     @Column(name = "price")
@@ -28,7 +29,6 @@ public class PickNPay {
 
     @Column(name = "url")
     private String url;
-
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prod_id")

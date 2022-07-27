@@ -21,6 +21,7 @@ import javax.persistence.*;
 public class Woolworth {
     @Id
     @Column(name = "id", nullable = false)
+    @JsonIgnore
     private Integer id;
 
     @Column(name = "price")

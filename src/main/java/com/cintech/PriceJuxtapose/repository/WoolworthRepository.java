@@ -1,6 +1,6 @@
 package com.cintech.PriceJuxtapose.repository;
 
-import com.cintech.PriceJuxtapose.entity.PickNPay;
+
 import com.cintech.PriceJuxtapose.entity.Woolworth;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

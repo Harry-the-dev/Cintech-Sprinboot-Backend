@@ -3,9 +3,7 @@ package com.cintech.PriceJuxtapose.service;
 import com.cintech.PriceJuxtapose.DTO.MainDTO;
 import com.cintech.PriceJuxtapose.DTO.ProductDTO;
 import com.cintech.PriceJuxtapose.entity.Product;
-import com.cintech.PriceJuxtapose.repository.PickNPayRepository;
 import com.cintech.PriceJuxtapose.repository.ProductRepository;
-import com.cintech.PriceJuxtapose.repository.WoolworthRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +52,6 @@ public class ProductService {
         return result;
 
     }
-
 
     public List<Product> getAllProductByTitleLikeOrContaining(String Title) {
         List<Product> result = new ArrayList<Product>();

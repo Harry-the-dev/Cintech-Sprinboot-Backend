@@ -1,12 +1,11 @@
 package com.cintech.PriceJuxtapose.service;
 
 import com.cintech.PriceJuxtapose.DTO.MainDTO;
-import com.cintech.PriceJuxtapose.DTO.ProductDTO;
 import com.cintech.PriceJuxtapose.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
