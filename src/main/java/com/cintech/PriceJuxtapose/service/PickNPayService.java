@@ -4,6 +4,7 @@ import com.cintech.PriceJuxtapose.DTO.MainDTO;
 import com.cintech.PriceJuxtapose.entity.PickNPay;
 import com.cintech.PriceJuxtapose.entity.Product;
 import com.cintech.PriceJuxtapose.repository.PickNPayRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,13 +12,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class PickNPayService {
 
-    @Autowired
-    private PickNPayRepository pickNPayRepository;
-    @Autowired
-    private ProductService productService;
+
+    private final PickNPayRepository pickNPayRepository;
+
+    private final ProductService productService;
 
 
     private ModelMapper mapper;
@@ -25,8 +27,6 @@ public class PickNPayService {
 
     public PickNPay convertMainDTOtoEntity(MainDTO mainDTO) {
         PickNPay pickNPay = PickNPay.builder().id(mainDTO.getProduct().getId()).price(mainDTO.getPickNPay().getPrice()).url(mainDTO.getPickNPay().getUrl()).product(mainDTO.getProduct()).build();
-
-
         return pickNPay;
     }
 

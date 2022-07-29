@@ -4,6 +4,7 @@ import com.cintech.PriceJuxtapose.DTO.MainDTO;
 import com.cintech.PriceJuxtapose.DTO.ProductDTO;
 import com.cintech.PriceJuxtapose.entity.Product;
 import com.cintech.PriceJuxtapose.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +12,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class ProductService {
 
     private ModelMapper mapper;
-    @Autowired
-    private ProductRepository productRepository;
+
+    private final ProductRepository productRepository;
 
 
     public Product save(Product product) {

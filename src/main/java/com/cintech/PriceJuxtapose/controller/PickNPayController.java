@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/picknpay")
+@CrossOrigin("*")
 public class PickNPayController {
 
     @Autowired
