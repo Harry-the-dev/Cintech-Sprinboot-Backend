@@ -12,14 +12,15 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+
 @Service
 public class PickNPayService {
 
 
-    private final PickNPayRepository pickNPayRepository;
-
-    private final ProductService productService;
+    @Autowired
+    private PickNPayRepository pickNPayRepository;
+    @Autowired
+    private ProductService productService;
 
 
     private ModelMapper mapper;

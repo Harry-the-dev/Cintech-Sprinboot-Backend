@@ -12,13 +12,15 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+
 @Service
 public class ProductService {
 
+
     private ModelMapper mapper;
 
-    private final ProductRepository productRepository;
+    @Autowired
+    private  ProductRepository productRepository;
 
 
     public Product save(Product product) {

@@ -12,16 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class MainService {
 
 
-    private final PickNPayService pickNPayService;
+    @Autowired
+    private PickNPayService pickNPayService;
 
-    private final WoolworthsService woolworthsService;
+    @Autowired
+    private WoolworthsService woolworthsService;
 
 
-    private final  ProductService productService;
+    @Autowired
+    private ProductService productService;
 
 
     public List<MainDTO> getProductsByTitle(String Title) {
