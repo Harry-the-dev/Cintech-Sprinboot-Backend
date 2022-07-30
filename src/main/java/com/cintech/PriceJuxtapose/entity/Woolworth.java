@@ -30,6 +30,8 @@ public class Woolworth {
     @Column(name = "url")
     private String url;
 
+    @Column(name = "vitality")
+    private Boolean vitality ;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prod_id")
