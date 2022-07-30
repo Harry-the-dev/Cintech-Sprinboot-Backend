@@ -27,14 +27,24 @@ public class PickNPayService {
 
 
     public PickNPay convertMainDTOtoEntity(MainDTO mainDTO) {
-        PickNPay pickNPay = PickNPay.builder().id(mainDTO.getProduct().getId()).price(mainDTO.getPickNPay().getPrice()).url(mainDTO.getPickNPay().getUrl()).product(mainDTO.getProduct()).build();
+        PickNPay pickNPay = PickNPay.builder()
+                .id(mainDTO.getProduct().getId())
+                .price(mainDTO.getPickNPay().getPrice())
+                .url(mainDTO.getPickNPay().getUrl())
+                .vitality(mainDTO.getPickNPay().getVitality())
+                .product(mainDTO.getProduct()).build();
         return pickNPay;
     }
 
     public MainDTO convertEntityToMainDTO(PickNPay pickNPay) {
         Product product = Product.builder().id(pickNPay.getProduct().getId()).prodTitle(pickNPay.getProduct().getProdTitle()).prodVolume(pickNPay.getProduct().getProdVolume()).prodVolumeUnit(pickNPay.getProduct().getProdVolumeUnit()).build();
 
-        PickNPay pickNPayTemp = PickNPay.builder().id(pickNPay.getProduct().getId()).price(pickNPay.getPrice()).url(pickNPay.getUrl()).product(pickNPay.getProduct()).build();
+        PickNPay pickNPayTemp = PickNPay.builder()
+                .id(pickNPay.getProduct().getId())
+                .price(pickNPay.getPrice())
+                .url(pickNPay.getUrl())
+                .vitality(pickNPay.getVitality())
+                .product(pickNPay.getProduct()).build();
 
         MainDTO mainDTO = MainDTO.builder().product(product).pickNPay(pickNPayTemp).build();
 

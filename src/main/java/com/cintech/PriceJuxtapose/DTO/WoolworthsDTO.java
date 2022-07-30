@@ -19,5 +19,6 @@ public class WoolworthsDTO implements Serializable {
     private Integer id;
     private Double price;
     private String url;
+    private Boolean vitality;
 
 }
