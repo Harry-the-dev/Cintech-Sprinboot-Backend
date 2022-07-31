@@ -67,7 +67,7 @@ public class ComparisonService {
                 String pnpPrice = item.getPrice().toString();
                 pnpTotal += item.getPrice();
                 if (item.getVitality()) {vit = "*";}
-                String title = item.getProduct().getProdTitle();
+                String title = item.getProduct().getProdTitle() +" "+ item.getProduct().getProdVolume() + item.getProduct().getProdVolumeUnit() ;
                 sb.appendLine(str.UserProduct(count, vit, title, pnpPrice));
             }
             sb.appendLine(str.UserSummary(pnpTotal));
@@ -82,7 +82,7 @@ public class ComparisonService {
                 String woolPrice = item.getPrice().toString();
                 woolTotal += item.getPrice();
                 if (item.getVitality()) {vit = "*";}
-                String title = item.getProduct().getProdTitle();
+                String title = item.getProduct().getProdTitle() +" "+ item.getProduct().getProdVolume() + item.getProduct().getProdVolumeUnit() ;
                 sb.appendLine(str.UserProduct(count, vit, title, woolPrice));
             }
             sb.appendLine(str.UserSummary(woolTotal));
@@ -114,7 +114,7 @@ public class ComparisonService {
             pnpTotal += item.getPickNPay().getPrice();
 
             if (item.getPickNPay().getVitality() && item.getWoolworths().getVitality()){ vit = "*";}
-            String title = item.getProduct().getProdTitle();
+            String title = item.getProduct().getProdTitle() +" "+ item.getProduct().getProdVolume() + item.getProduct().getProdVolumeUnit() ;
             String woolPrice = item.getWoolworths().getPrice().toString();
             String pnpPrice = item.getPickNPay().getPrice().toString();
             sb.appendLine(str.MainProduct(count,vit,title,woolPrice,pnpPrice));
