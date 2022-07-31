@@ -17,7 +17,7 @@ public class WoolworthsController {
     @Autowired
     private  WoolworthsService woolworthsService;
 
-    //http://localhost:8080/woolworths/getProducts
+    //https://cintech-springboot-back-end.azurewebsites.net/woolworths/getProducts
     //-----------------------------GET all Woolworths products------------------------------------------------
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/getProducts")
@@ -25,7 +25,7 @@ public class WoolworthsController {
         return woolworthsService.getProducts();
     }
 
-    //http://localhost:8080/woolworths/getProductsByTitle
+    //https://cintech-springboot-back-end.azurewebsites.net/getProductsByTitle
     //-----------------------------GET all Woolworths products By Title------------------------------------------------
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("getProductsByTitle/{title}")

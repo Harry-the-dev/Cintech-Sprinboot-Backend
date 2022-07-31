@@ -1,7 +1,10 @@
 package com.cintech.PriceJuxtapose.service;
 
+import com.cintech.PriceJuxtapose.DTO.GroceryListDTO;
 import com.cintech.PriceJuxtapose.DTO.MainDTO;
+import com.cintech.PriceJuxtapose.entity.PickNPay;
 import com.cintech.PriceJuxtapose.entity.Product;
+import com.cintech.PriceJuxtapose.entity.Woolworth;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MainService {
@@ -48,8 +53,6 @@ public class MainService {
         return resultDTOList;
     }
 
-
-
     @Transactional
     public boolean saveProducts(MainDTO mainDTO) {
 
@@ -73,47 +76,5 @@ public class MainService {
 
     }
 
-    /*
-    public List<MainDTO> findPriceBetween ( double min , double max )
-    {
-        List<ProductDTO> productDTOList = productService.getAllProductListed();
-        List<MainDTO> result = new ArrayList<>();
-
-        for (ProductDTO value : productDTOList) {
-            int id = value.getId();
-            if (between(pickNPayService.getProductById(id).getPrice(), min, max) && between(woolworthsService.getProductById(id).getPrice(), min, max)) {
-                result.add(assignToMainDTO(productService.getProductById(id)));
-            } else if (between(pickNPayService.getProductById(id).getPrice(), min, max)) {
-                result.add(assignToPickNPayMainDTO(productService.getProductById(id)));
-            } else if (between(woolworthsService.getProductById(id).getPrice(), min, max)) {
-                result.add(assignToWoolworthsMainDTO(productService.getProductById(id)));
-            }
-        }
-      return result;
-    }
-
-
-
-
-    public MainDTO assignToPickNPayMainDTO (ProductDTO productDTO)
-    {
-        MainDTO mainDTO = MainDTO.builder()
-                .product(productDTO)
-                .pickNPay(pickNPayService.getProductById(productDTO.getId()))
-                .build();
-        return mainDTO;
-
-    }
-
-
-    public MainDTO assignToWoolworthsMainDTO (ProductDTO productDTO)
-    {
-        MainDTO mainDTO = MainDTO.builder()
-                .product(productDTO)
-                .woolworths(woolworthsService.getProductById(productDTO.getId()))
-                .build();
-        return mainDTO;
-
-    }*/
 
 }

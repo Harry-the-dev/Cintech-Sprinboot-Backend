@@ -55,6 +55,15 @@ public class PickNPayService {
         return convertEntityToMainDTO(pickNPayRepository.findPickNPayByProductId(id));
     }
 
+    public PickNPay getPickNpayByUrl (String url)
+    {
+      PickNPay result =  pickNPayRepository.findPickNPayByUrl(url);
+      if (result == null) {
+          return null;
+      }
+      return result ;
+    }
+
     public List<MainDTO> getProductByTitle(String title) {
         List<MainDTO> result = new ArrayList<MainDTO>();
         List<Product> productDTOList = productService.getAllProductByTitleLikeOrContaining(title);
@@ -73,12 +82,4 @@ public class PickNPayService {
         return pickNPayRepository.save(convertMainDTOtoEntity(mainDTO));
     }
 
-
-        /*
-    public List<PickNPayDTO> getProductByPriceBetween ( double min , double max )
-    {
-        List<PickNPayDTO> result = new ArrayList<PickNPayDTO>();
-        pickNPayRepository.findAllByPriceBetween(min,max).forEach(value -> result.add(convertEntityToDTO(value)));
-        return result;
-    }*/
 }

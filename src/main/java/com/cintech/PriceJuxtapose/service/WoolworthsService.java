@@ -2,6 +2,7 @@ package com.cintech.PriceJuxtapose.service;
 
 import com.cintech.PriceJuxtapose.DTO.*;
 
+import com.cintech.PriceJuxtapose.entity.PickNPay;
 import com.cintech.PriceJuxtapose.entity.Product;
 import com.cintech.PriceJuxtapose.entity.Woolworth;
 import com.cintech.PriceJuxtapose.repository.WoolworthRepository;
@@ -71,6 +72,15 @@ public class WoolworthsService {
         return result;
     }
 
+    public Woolworth getWoolworthByUrl (String url)
+    {
+        Woolworth result =  woolworthRepository.findWoolworthByUrl(url);
+        if (result == null) {
+            return null;
+        }
+        return result ;
+    }
+
 
     public List<MainDTO> getProducts() {
         List<MainDTO> result = new ArrayList<MainDTO>();
@@ -81,14 +91,6 @@ public class WoolworthsService {
     public Woolworth saveProduct(MainDTO mainDTO) {
         return woolworthRepository.save(convertMainDTOtoEntity(mainDTO));
     }
-
-    /*
-    public List<MainDTO> getProductByPriceBetween (double min , double max )
-    {
-        List<MainDTO> result = new ArrayList<MainDTO>();
-        woolworthRepository.findAllByPriceBetween(min,max).forEach(value -> result.add(convertEntityToMainDTO(value)));
-        return result;
-    }*/
 
 
 }

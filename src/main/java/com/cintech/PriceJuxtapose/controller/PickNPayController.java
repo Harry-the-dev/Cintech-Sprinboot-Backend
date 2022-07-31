@@ -17,7 +17,7 @@ public class PickNPayController {
     private PickNPayService pickNPayService;
 
 
-    //http://localhost:8080/picknpay/getProducts
+    //https://cintech-springboot-back-end.azurewebsites.net/picknpay/getProducts
     //-----------------------------GET all PNP products------------------------------------------------
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/getProducts")
@@ -26,7 +26,7 @@ public class PickNPayController {
     }
 
 
-    //http://localhost:8080/picknpay/getProductByTitle
+    //https://cintech-springboot-back-end.azurewebsites.net/getProductByTitle
     //-----------------------------GET all PNP products By Title------------------------------------------------
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("getProductByTitle/{title}")

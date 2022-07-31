@@ -12,6 +12,8 @@ public interface WoolworthRepository extends JpaRepository<Woolworth, Integer> {
 
     List<Woolworth> findAllByPriceBetween ( double min , double max );
 
+    Woolworth findWoolworthByUrl (String url);
+
     @Query( value = "select * from woolworths p where p.prod_id = :id" , nativeQuery = true)
     Woolworth findWoolworthsByProductId(Integer id);
 

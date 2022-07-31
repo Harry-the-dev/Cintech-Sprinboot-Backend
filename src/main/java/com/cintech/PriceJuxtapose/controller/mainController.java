@@ -1,6 +1,8 @@
 package com.cintech.PriceJuxtapose.controller;
 
+import com.cintech.PriceJuxtapose.DTO.GroceryListDTO;
 import com.cintech.PriceJuxtapose.DTO.MainDTO;
+import com.cintech.PriceJuxtapose.service.ComparisonService;
 import com.cintech.PriceJuxtapose.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +18,10 @@ public class mainController {
     @Autowired
     private MainService mainService;
 
-    //http://localhost:8080/all/saveProducts
+    @Autowired
+    private ComparisonService comparisonService;
+
+    //https://cintech-springboot-back-end.azurewebsites.net/all/saveProducts
     //----------------------------- Add Products in Bulk to all shops------------------------------------------------
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/saveProducts", consumes = "application/json", produces = "application/json")
@@ -25,7 +30,7 @@ public class mainController {
         return true;
     }
 
-    //http://localhost:8080/all/start
+    //https://cintech-springboot-back-end.azurewebsites.net/all/start
     //----------------------------- GET starting 10 Random Products From all Stores------------------------------------------------
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/start")
@@ -34,7 +39,7 @@ public class mainController {
     }
 
 
-    //http://localhost:8080/all/getProducts
+    //https://cintech-springboot-back-end.azurewebsites.net/all/getProducts
     //----------------------------- GET  Products From all Stores-------------------------------------------
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/getProducts")
@@ -42,7 +47,7 @@ public class mainController {
         return mainService.getProducts();
     }
 
-    //http://localhost:8080/all/getProductsByTitle
+    //https://cintech-springboot-back-end.azurewebsites.net/all/getProductsByTitle
     //----------------------------- GET  Products From all Stores-------------------------------------------
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/getProductsByTitle/{title}")
@@ -50,12 +55,14 @@ public class mainController {
         return mainService.getProductsByTitle(title);
     }
 
-    /*
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/getAllByPriceBetween/{min}/{max}")
-    public List<MainDTO> getAllBulkByPriceBetween(@PathVariable double min,@PathVariable double max ) {
-        return mainService.findPriceBetween(min, max);
-    }*/
+    //https://cintech-springboot-back-end.azurewebsites.net/all/processGroceryList
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PostMapping("/processGroceryList/{email}")
+    public void saveGroceryList ( @PathVariable String email , @RequestBody List<GroceryListDTO> groceryListDTO)
+    {
+        comparisonService.processGroceryList(groceryListDTO, email);
+    }
+
 
 
 }

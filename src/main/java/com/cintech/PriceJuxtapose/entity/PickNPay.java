@@ -33,7 +33,7 @@ public class PickNPay {
     @Column(name = "vitality")
     private Boolean vitality ;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "prod_id")
     @JsonIgnore
     private Product product;
