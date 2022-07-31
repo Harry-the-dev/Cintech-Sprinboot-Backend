@@ -4,7 +4,7 @@ import com.cintech.PriceJuxtapose.DTO.MainDTO;
 import com.cintech.PriceJuxtapose.entity.PickNPay;
 import com.cintech.PriceJuxtapose.entity.Product;
 import com.cintech.PriceJuxtapose.repository.PickNPayRepository;
-import lombok.AllArgsConstructor;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

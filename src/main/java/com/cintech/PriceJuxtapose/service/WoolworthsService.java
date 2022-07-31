@@ -2,7 +2,7 @@ package com.cintech.PriceJuxtapose.service;
 
 import com.cintech.PriceJuxtapose.DTO.*;
 
-import com.cintech.PriceJuxtapose.entity.PickNPay;
+
 import com.cintech.PriceJuxtapose.entity.Product;
 import com.cintech.PriceJuxtapose.entity.Woolworth;
 import com.cintech.PriceJuxtapose.repository.WoolworthRepository;

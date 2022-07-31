@@ -19,7 +19,6 @@ import javax.mail.internet.MimeMessage;
 public class MailService {
 
     private final JavaMailSender mailSender;
-    private final MailContentService mailContentService;
 
     void sendMail(NotificationEmail notificationEmail)
     {
@@ -28,7 +27,7 @@ public class MailService {
             messageHelper.setFrom("support@pricejuxtapose.live");
             messageHelper.setTo(notificationEmail.getRecipient());
             messageHelper.setSubject(notificationEmail.getSubject());
-            messageHelper.setText(mailContentService.build(notificationEmail.getBody()));
+            messageHelper.setText(notificationEmail.getBody());
         };
         try {
             mailSender.send(messagePreparator);
